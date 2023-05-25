@@ -1,4 +1,11 @@
 $filePath = "C:\temp\rdp.reg"
+$directory = Split-Path -Parent $filePath
+
+# Create the directory if it doesn't exist
+if (-not (Test-Path $directory)) {
+    New-Item -ItemType Directory -Path $directory | Out-Null
+}
+
 $content = @"
 Windows Registry Editor Version 5.00
 
@@ -474,9 +481,8 @@ Windows Registry Editor Version 5.00
 "MicrosoftSilverlight"="*"
 "ShockwaveFlashFullScreen"="*"
 
-
-"@ 
+"@
 
 Set-Content -Path $filePath -Value $content
 
-Write-Host "Registry file file created successfully at $filePath"
+Write-Host "Text file created successfully at $filePath"
